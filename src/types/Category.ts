@@ -12,4 +12,6 @@ export interface ICategory extends Document {
         isTopPerformer: boolean;
     };
     images?: string[];
+    isDeleted: boolean;
+    isBanned: Date | null;
 }

@@ -17,5 +17,7 @@ export interface IProduct extends Document {
         isTopPerformer: boolean;
     };
     images: string[];
+    isDeleted: boolean;
+    isBanned: Date | null;
     updateAvailability(isAvailable: boolean): Promise<IProduct>;
 }

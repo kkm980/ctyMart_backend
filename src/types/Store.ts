@@ -28,6 +28,8 @@ export interface IStore extends Document {
         minProductPrice: number;
         maxProductPrice: number;
     };
-    updatePriceMetrics(): Promise<void>;
     images: string[];
+    isDeleted: boolean;
+    isBanned: Date | null;
+    updatePriceMetrics(): Promise<void>;
 }

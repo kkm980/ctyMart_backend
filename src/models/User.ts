@@ -1,5 +1,6 @@
 // src/models/User.ts
 
+import UserRole from 'constants';
 import mongoose, { Schema } from 'mongoose';
 import { IUser } from 'types';
 
@@ -27,7 +28,7 @@ const userSchema = new Schema<IUser>({
     },
     role: {
       type: String,
-      enum: ['customer', 'admin', 'juniorAdmin', 'storeOwner', 'manager', 'deliveryPartner'],
+      enum: Object.values(UserRole),
       default: 'customer', // Default role is 'customer'
     },
     walletBalance: {
@@ -44,10 +45,11 @@ const userSchema = new Schema<IUser>({
       type: Schema.Types.ObjectId,
       ref: 'User', // Reference to another User (the person who referred)
     },
-    isPhoneVerified: {
-      type: Boolean,
-      default: false, // Default value is false
-    },
+  isPhoneVerified: {
+    type: Boolean,
+    default: false, // Default value is false
+  },
+  allAddress: [{
     address: {
       type: String,
       required: [true, 'Address is required'],
@@ -67,40 +69,43 @@ const userSchema = new Schema<IUser>({
         message: 'Invalid location. Coordinates must be [longitude, latitude].',
       },
     },
-    deliveryPersonDetails: {
-      location: {
-        type: [Number],
-        validate: {
-          validator: (value: [number, number]) => {
-            return (
-              Array.isArray(value) &&
-              value.length === 2 &&
-              value[0] >= -180 && value[0] <= 180 && // Longitude between -180 and 180
-              value[1] >= -90 && value[1] <= 90 // Latitude between -90 and 90
-            );
-          },
-          message: 'Invalid location. Coordinates must be [longitude, latitude].',
+  }],
+  deliveryPersonDetails: {
+    location: {
+      type: [Number],
+      validate: {
+        validator: (value: [number, number]) => {
+          return (
+            Array.isArray(value) &&
+            value.length === 2 &&
+            value[0] >= -180 && value[0] <= 180 && // Longitude between -180 and 180
+            value[1] >= -90 && value[1] <= 90 // Latitude between -90 and 90
+          );
         },
-      },
-      isAvailable: {
-        type: Boolean,
-        default: true,
-      },
-      vehicleNumber: {
-        type: String,
-        match: [/^[A-Z0-9-]+$/, 'Invalid vehicle number'], // Example pattern for vehicle number validation
-      },
-      licenseNumber: {
-        type: String,
-        match: [/^[A-Z0-9-]+$/, 'Invalid license number'], // Example pattern for license number validation
-      },
-      rating: {
-        type: Number,
-        default: 0,
-        min: [0, 'Rating cannot be less than 0'],
-        max: [5, 'Rating cannot be greater than 5'],
+        message: 'Invalid location. Coordinates must be [longitude, latitude].',
       },
     },
+    isAvailable: {
+      type: Boolean,
+      default: true,
+    },
+    vehicleNumber: {
+      type: String,
+      match: [/^[A-Z0-9-]+$/, 'Invalid vehicle number'], // Example pattern for vehicle number validation
+    },
+    licenseNumber: {
+      type: String,
+      match: [/^[A-Z0-9-]+$/, 'Invalid license number'], // Example pattern for license number validation
+    },
+    rating: {
+      type: Number,
+      default: 0,
+      min: [0, 'Rating cannot be less than 0'],
+      max: [5, 'Rating cannot be greater than 5'],
+    },
+  },
+    isDeleted: { type: Boolean, default: false },
+    isBanned: { type: Date, default: null }
   }, {
     timestamps: true, // Automatically manage createdAt and updatedAt fields
   });

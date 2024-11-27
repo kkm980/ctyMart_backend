@@ -1,5 +1,6 @@
 // src/models/Product.ts
 
+import { MeasureType } from 'constants/enums';
 import mongoose, { Model, Schema } from 'mongoose';
 import { IProduct } from 'types';
 
@@ -19,7 +20,7 @@ const productSchema = new Schema<IProduct>({
     price: { type: Number, required: true, message: "catch:required field:price" },
     measuringUnit: {
         type: String,
-        enum: ['kg', 'g', 'l', 'ml', 'pcs', 'pack'],
+        enum: Object.values(MeasureType),
         required: true,
         message: "catch:required field:measuringUnit",
     },
@@ -32,6 +33,8 @@ const productSchema = new Schema<IProduct>({
         isTopPerformer: { type: Boolean, default: false },
     },
     images: [{ type: String }],
+    isDeleted: { type: Boolean, default: false },
+    isBanned: { type: Date, default: null }
 }, {
     timestamps: true,
 });

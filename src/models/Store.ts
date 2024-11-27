@@ -42,6 +42,8 @@ const storeSchema = new Schema<IStore>({
         maxProductPrice: { type: Number, required: true, default: 0 },
     },
     images: [{ type: String }],
+    isDeleted: { type: Boolean, default: false },
+    isBanned: { type: Date, default: null }
 }, {
     timestamps: true,
 });

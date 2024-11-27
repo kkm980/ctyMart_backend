@@ -13,6 +13,8 @@ const categorySchema = new Schema<ICategory>({
         totalOrders: { type: Number, default: 0 },
         isTopPerformer: { type: Boolean, default: false },
     },
+    isDeleted: { type: Boolean, default: false },
+    isBanned: { type: Date, default: null }
 }, {
     timestamps: true,
 });

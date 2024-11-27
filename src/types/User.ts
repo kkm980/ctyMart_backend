@@ -7,13 +7,15 @@ export interface IUser extends Document {
   password: string;
   name: string;
   phone: string;
-  role: 'customer' | 'admin' | 'juniorAdmin' | 'storeOwner' |  'manager' | 'deliveryPartner';
+  role: 'customer' | 'admin' | 'juniorAdmin' | 'storeOwner' | 'manager' | 'deliveryPartner';
   walletBalance: number;
   referralCode?: string;
   referredBy?: mongoose.Types.ObjectId;
   isPhoneVerified: boolean;
-  address: string;
-  location: [number, number];
+  allAddress: [{
+    address: string;
+    location: [number, number];
+  }];
   deliveryPersonDetails?: {
     location: [number, number];
     isAvailable: boolean;
@@ -21,4 +23,6 @@ export interface IUser extends Document {
     licenseNumber?: string;
     rating: number;
   };
+  isDeleted: boolean;
+  isBanned: Date | null;
 }
