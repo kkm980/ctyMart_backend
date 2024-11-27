@@ -1,5 +1,6 @@
 // src/types/User
 import mongoose, { Document } from 'mongoose';
+import { UserRoleTypes } from './UserRoleTypes';
 
 // User interface
 export interface IUser extends Document {
@@ -7,7 +8,7 @@ export interface IUser extends Document {
   password: string;
   name: string;
   phone: string;
-  role: 'customer' | 'admin' | 'juniorAdmin' | 'storeOwner' | 'manager' | 'deliveryPartner';
+  role: UserRoleTypes;
   walletBalance: number;
   referralCode?: string;
   referredBy?: mongoose.Types.ObjectId;

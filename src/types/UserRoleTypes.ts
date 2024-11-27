@@ -1,0 +1,1 @@
+export type UserRoleTypes = 'customer' | 'admin' | 'juniorAdmin' | 'storeOwner' | 'manager' | 'deliveryPartner';

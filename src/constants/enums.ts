@@ -44,3 +44,9 @@ export enum MeasureType {
     PCS= 'pcs',
     PACK= 'pack'
 }
+
+export enum OTPpurpose {
+    SIGNUP= 'signup',
+    LOGIN= 'login',
+    PASSWORD_RESET= 'password_reset'
+}

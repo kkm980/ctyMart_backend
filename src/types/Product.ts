@@ -1,5 +1,6 @@
 // src/types/Product
 import mongoose, { Document } from 'mongoose';
+import { MeasureTypes } from './MeasureTypes';
 
 // Product interface
 export interface IProduct extends Document {
@@ -7,7 +8,7 @@ export interface IProduct extends Document {
     name: string;
     description?: string;
     price: number;
-    measuringUnit: 'kg' | 'g' | 'l' | 'ml' | 'pcs' | 'pack';
+    measuringUnit: MeasureTypes;
     categories?: mongoose.Types.ObjectId[];
     availableQuantity: number;
     isAvailable: boolean;
