@@ -7,7 +7,8 @@ export interface IStore extends Document {
     description?: string;
     address: string;
     location: [number, number];
-    owners: mongoose.Types.ObjectId[];
+    owner: mongoose.Types.ObjectId;
+    managers?: mongoose.Types.ObjectId[];
     contact: string[];
     categories?: mongoose.Types.ObjectId[];
     isOpen: boolean;

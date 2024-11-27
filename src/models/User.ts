@@ -27,7 +27,7 @@ const userSchema = new Schema<IUser>({
     },
     role: {
       type: String,
-      enum: ['customer', 'admin', 'juniorAdmin', 'storeOwner', 'deliveryPartner'],
+      enum: ['customer', 'admin', 'juniorAdmin', 'storeOwner', 'manager', 'deliveryPartner'],
       default: 'customer', // Default role is 'customer'
     },
     walletBalance: {
@@ -104,6 +104,9 @@ const userSchema = new Schema<IUser>({
   }, {
     timestamps: true, // Automatically manage createdAt and updatedAt fields
   });
+
+  userSchema.index({ address: 'text', name: 'text', phone: 'text', referredBy: 'text' }); // Text index on address and name
+  //userSchema.index({  }); // Regular index on owner, managers and categories
   
   const User = mongoose.model<IUser>('User', userSchema);
   

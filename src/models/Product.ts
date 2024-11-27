@@ -36,8 +36,8 @@ const productSchema = new Schema<IProduct>({
     timestamps: true,
 });
 
-// Index: StoreId and Name (Compound Index)
-productSchema.index({ storeId: 1, name: 1 });
+productSchema.index({ name: 'text' }); // Text Index: StoreId and Name (Compound Index)
+productSchema.index({ storeId:1, categories: 1 }); // Regular index on categories
 
 // Middleware to automatically update `isAvailable` based on `availableQuantity`
 productSchema.pre<IProduct>('save', function (next) {

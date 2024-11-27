@@ -7,7 +7,7 @@ export interface IUser extends Document {
   password: string;
   name: string;
   phone: string;
-  role: 'customer' | 'admin' | 'juniorAdmin' | 'storeOwner' | 'deliveryPartner';
+  role: 'customer' | 'admin' | 'juniorAdmin' | 'storeOwner' |  'manager' | 'deliveryPartner';
   walletBalance: number;
   referralCode?: string;
   referredBy?: mongoose.Types.ObjectId;

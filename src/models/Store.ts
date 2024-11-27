@@ -20,7 +20,8 @@ const storeSchema = new Schema<IStore>({
             message: 'catch:invalid field:location',
         },
     },
-    owners: [{ type: Schema.Types.ObjectId, ref: 'Admin', required: true }],
+    owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    managers: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
     contact: [{ type: String, required: true }],
     categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     isOpen: { type: Boolean, default: true },
@@ -44,6 +45,9 @@ const storeSchema = new Schema<IStore>({
 }, {
     timestamps: true,
 });
+
+storeSchema.index({ address: 'text', name: 'text', owner: 'text', managers: 'text' }); // Text index on address and name
+storeSchema.index({ categories: 1 }); // Regular index on categories
 
 // Store Method: Update Price Metrics
 storeSchema.methods.updatePriceMetrics = async function (): Promise<void> {
