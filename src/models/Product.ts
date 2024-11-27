@@ -2,7 +2,7 @@
 
 import { MeasureType } from 'constants/enums';
 import mongoose, { Model, Schema } from 'mongoose';
-import { IProduct } from 'types';
+import { IProduct, IProductModel } from 'types';
 
 // Product schema
 const productSchema = new Schema<IProduct>({
@@ -27,11 +27,9 @@ const productSchema = new Schema<IProduct>({
     categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     availableQuantity: { type: Number, required: true, default: 500 },
     isAvailable: { type: Boolean, default: true },
-    metrics: {
-        rating: { type: Number, default: 0 },
-        totalOrders: { type: Number, default: 0 },
-        isTopPerformer: { type: Boolean, default: false },
-    },
+    rating: { type: Number, default: 0 },
+    totalOrders: { type: Number, default: 0 },
+    isTopPerformer: { type: Boolean, default: false },
     images: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
     isBanned: { type: Date, default: null }
@@ -50,6 +48,7 @@ productSchema.pre<IProduct>('save', function (next) {
     next();
 });
 
+// on addition/update on any product, update the minimum price, maximum price of store 
 productSchema.pre('save', async function (next) {
     try {
         const Store = mongoose.model('Store');
@@ -84,5 +83,16 @@ productSchema.methods.updateAvailability = async function (isAvailable: boolean)
     return this.save();
 };
 
+
+// Static method on ProductSchema
+// Add the static method
+productSchema.statics.incrementTotalOrders = async function (productId: string, quantity: number): Promise<void> {
+    try {
+        await this.findByIdAndUpdate(productId, { $inc: { totalOrders: quantity } });
+    } catch (error) {
+        console.error(`Failed to update totalOrders for product ${productId}:`, error);
+    }
+};
+
 // Create and export the Product model
-export const Product: Model<IProduct> = mongoose.model<IProduct>('Product', productSchema);
+export const Product = mongoose.model<IProduct, IProductModel>('Product', productSchema);

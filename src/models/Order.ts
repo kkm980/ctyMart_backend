@@ -1,8 +1,9 @@
 import { ActionTakers, Arrived, OrderStatus, OrderType, PaymentStatus } from 'constants/enums';
 import mongoose, { Schema } from 'mongoose';
 import { IOrder } from 'types';
+import { Product } from './Product';
 
-// Define the Order Schema
+// Order Schema
 const OrderSchema = new Schema<IOrder>({
     customer: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' }, // Reference to a User model (customer)
     description: { type: String, required: false },
@@ -73,6 +74,28 @@ const OrderSchema = new Schema<IOrder>({
 OrderSchema.index({ customer: 1 }); // Index for customer field
 OrderSchema.index({ 'items.product': 1 }); // Index for product references
 OrderSchema.index({ status: 1, orderType: 1 }); // Compound index for queries involving status and type
+
+
+// Middleware to update totalOrders count of Product when an order is delivered
+OrderSchema.post('findOneAndUpdate', async function (doc: any) {
+    if (doc?.status === 'delivered') {
+        const items = doc.items;
+
+        if (items && Array.isArray(items)) {
+            for (const item of items) {
+                const productId = item.product;
+                const quantity = item.quantity;
+
+                // Call the static method on the Product model
+                try {
+                    await Product.incrementTotalOrders(productId, quantity);
+                } catch (error) {
+                    console.error('Error updating total orders:', error);
+                }
+            }
+        }
+    }
+});
 
 // Create and export the model
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
