@@ -5,11 +5,8 @@ import mongoose, { Schema } from 'mongoose';
 import { IReview } from 'types';
 import { Product } from './Product';
 import { Store } from './Store';
+import { roundToNearestHalf } from 'utils/roundToNearestHalf';
 
-// Helper function to round to the nearest 0.5
-const roundToNearestHalf = (num: number) => {
-    return Math.round(num * 2) / 2;
-};
 // Review Schema
 const ReviewSchema = new Schema<IReview>({
     customer: {

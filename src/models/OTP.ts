@@ -1,6 +1,6 @@
 import { OTPpurpose } from 'constants/enums';
 import mongoose, { Schema } from 'mongoose';
-import { IOTP } from 'types/OTP';
+import { IOTP } from 'types';
 
 const otpSchema = new Schema<IOTP>(
   {
