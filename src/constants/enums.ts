@@ -50,3 +50,23 @@ export enum OTPpurpose {
     LOGIN= 'login',
     PASSWORD_RESET= 'password_reset'
 }
+
+export enum UserFinds {
+    GOOD= 'good',
+    NEUTRAL= 'neutral',
+    BAD= 'bad'
+}
+
+export enum RatingPointer {
+    Half = "0.5",
+    One = "1.0",
+    OneAndHalf = "1.5",
+    Two = "2.0",
+    TwoAndHalf = "2.5",
+    Three = "3.0",
+    ThreeAndHalf = "3.5",
+    Four = "4.0",
+    FourAndHalf = "4.5",
+    Five = "5.0",
+  }
+  

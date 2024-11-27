@@ -1,0 +1,1 @@
+export type UserFinds = 'bad' | 'neutral' | 'good';
