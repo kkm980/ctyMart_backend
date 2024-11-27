@@ -3,6 +3,8 @@ import mongoose, { Document } from 'mongoose';
 import { OrderStatus } from './OrderStatus';
 import { PaymentStatus } from './PaymentStatus';
 import { OrderType } from './OrderType';
+import { TimeStatus } from './TimeStatus';
+import { ActionTakers } from './ActionTakers';
 
 // Order interface
 export interface IOrder extends Document {
@@ -11,11 +13,13 @@ export interface IOrder extends Document {
     status: OrderStatus;
     orderType: OrderType;
     updateHistory: Array<{
-        updatedBy: 'user' | 'admin' | 'store' | 'deliveryPartner';
+        updatedBy: ActionTakers;
         status: OrderStatus | PaymentStatus;
     }>;
     items: [{ product: mongoose.Types.ObjectId, qantity: Number }];
     totalPrice: Number;
+    arrivingIn?: string; // total predicted time to arrive
+    arrived?: TimeStatus; // was order late or not
     deliverAt: {
         address: string;
         location: [number, number];

@@ -1,0 +1,1 @@
+export type ActionTakers = 'user' | 'admin' | 'store' | 'deliveryPartner';

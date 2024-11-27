@@ -69,4 +69,10 @@ export enum RatingPointer {
     FourAndHalf = "4.5",
     Five = "5.0",
   }
+
+export enum Arrived {
+    LATE= "late",
+    PUNCTUAL= "punctual",
+    EARLY= "early"
+  }
   

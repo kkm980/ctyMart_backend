@@ -1,4 +1,4 @@
-import { ActionTakers, OrderStatus, OrderType, PaymentStatus } from 'constants/enums';
+import { ActionTakers, Arrived, OrderStatus, OrderType, PaymentStatus } from 'constants/enums';
 import mongoose, { Schema } from 'mongoose';
 import { IOrder } from 'types';
 
@@ -39,6 +39,11 @@ const OrderSchema = new Schema<IOrder>({
         }
     ],
     totalPrice: { type: Number, required: true, min: 0 },
+    arrivingIn: {type: String, required: false},
+    arrived: { type: String,
+               enum: Object.values(Arrived),
+               required: false
+            },
     deliverAt: {
         address: {
             type: String,
@@ -64,6 +69,10 @@ const OrderSchema = new Schema<IOrder>({
 }, {
     timestamps: true
 });
+
+OrderSchema.index({ customer: 1 }); // Index for customer field
+OrderSchema.index({ 'items.product': 1 }); // Index for product references
+OrderSchema.index({ status: 1, orderType: 1 }); // Compound index for queries involving status and type
 
 // Create and export the model
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
