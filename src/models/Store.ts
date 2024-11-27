@@ -1,0 +1,67 @@
+// src/models/Store.ts
+
+import mongoose, { Model, Schema } from 'mongoose';
+import { IStore } from 'types';
+
+// Store schema
+const storeSchema = new Schema<IStore>({
+    name: { type: String, required: true },
+    description: { type: String },
+    address: { type: String, required: true },
+    location: {
+        type: [Number], // Array of two numbers [latitude, longitude]
+        required: true,
+        validate: {
+            validator: (value: [number, number]) => {
+                if (!Array.isArray(value) || value.length !== 2) return false;
+                const [latitude, longitude] = value;
+                return latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180;
+            },
+            message: 'catch:invalid field:location',
+        },
+    },
+    owners: [{ type: Schema.Types.ObjectId, ref: 'Admin', required: true }],
+    contact: [{ type: String, required: true }],
+    categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+    isOpen: { type: Boolean, default: true },
+    operatingHours: {
+        monday: { open: { type: String, required: true }, close: { type: String, required: true } },
+        tuesday: { open: { type: String, required: true }, close: { type: String, required: true } },
+        wednesday: { open: { type: String, required: true }, close: { type: String, required: true } },
+        thursday: { open: { type: String, required: true }, close: { type: String, required: true } },
+        friday: { open: { type: String, required: true }, close: { type: String, required: true } },
+        saturday: { open: { type: String, required: true }, close: { type: String, required: true } },
+        sunday: { open: { type: String, required: true }, close: { type: String, required: true } },
+    },
+    metrics: {
+        rating: { type: Number, default: 0 },
+        totalOrders: { type: Number, default: 0 },
+        isTopPerformer: { type: Boolean, default: false },
+        minProductPrice: { type: Number, required: true, default: 0 },
+        maxProductPrice: { type: Number, required: true, default: 0 },
+    },
+    images: [{ type: String }],
+}, {
+    timestamps: true,
+});
+
+// Store Method: Update Price Metrics
+storeSchema.methods.updatePriceMetrics = async function (): Promise<void> {
+    const Product = mongoose.model('Product'); // Reference the Product model
+    const products = await Product.find({ storeId: this._id }).select('price'); // Fetch products of this store
+
+    if (products.length > 0) {
+        const prices = products.map((product) => product.price);
+        this.metrics.minProductPrice = Math.min(...prices);
+        this.metrics.maxProductPrice = Math.max(...prices);
+    } else {
+        // No products, reset min and max prices
+        this.metrics.minProductPrice = 0;
+        this.metrics.maxProductPrice = 0;
+    }
+
+    await this.save();
+};
+
+// Create and export the Store model
+export const Store: Model<IStore> = mongoose.model<IStore>('Store', storeSchema);
