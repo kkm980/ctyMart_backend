@@ -8,11 +8,9 @@ const categorySchema = new Schema<ICategory>({
     name: { type: String, required: true, message: "catch:required field:name" },
     description: { type: String },
     parentCategory: { type: Schema.Types.ObjectId, ref: 'Category' },
-    metrics: {
-        rating: { type: Number, default: 0 },
-        totalOrders: { type: Number, default: 0 },
-        isTopPerformer: { type: Boolean, default: false },
-    },
+    rating: { type: Number, default: 0 },
+    totalOrders: { type: Number, default: 0 },
+    isTopPerformer: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
     isBanned: { type: Date, default: null }
 }, {

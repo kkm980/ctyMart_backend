@@ -6,11 +6,9 @@ export interface ICategory extends Document {
     name: string;
     description?: string;
     parentCategory?: mongoose.Types.ObjectId;
-    metrics: {
-        rating: number;
-        totalOrders: number;
-        isTopPerformer: boolean;
-    };
+    rating: number;
+    totalOrders: number;
+    isTopPerformer: boolean;
     images?: string[];
     isDeleted: boolean;
     isBanned: Date | null;

@@ -13,6 +13,7 @@ export interface IProduct extends Document {
     availableQuantity: number;
     isAvailable: boolean;
     rating: number;
+    totalReviews: number,
     totalOrders: number;
     isTopPerformer: boolean;
     images: string[];

@@ -34,13 +34,12 @@ const storeSchema = new Schema<IStore>({
         saturday: { open: { type: String, required: true }, close: { type: String, required: true } },
         sunday: { open: { type: String, required: true }, close: { type: String, required: true } },
     },
-    metrics: {
-        rating: { type: Number, default: 0 },
-        totalOrders: { type: Number, default: 0 },
-        isTopPerformer: { type: Boolean, default: false },
-        minProductPrice: { type: Number, required: true, default: 0 },
-        maxProductPrice: { type: Number, required: true, default: 0 },
-    },
+    rating: { type: Number, default: 0 },
+    totalReviews: {type: Number, default: 0},
+    totalOrders: { type: Number, default: 0 },
+    isTopPerformer: { type: Boolean, default: false },
+    minProductPrice: { type: Number, required: true, default: 0 },
+    maxProductPrice: { type: Number, required: true, default: 0 },
     images: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
     isBanned: { type: Date, default: null }
@@ -58,12 +57,12 @@ storeSchema.methods.updatePriceMetrics = async function (): Promise<void> {
 
     if (products.length > 0) {
         const prices = products.map((product) => product.price);
-        this.metrics.minProductPrice = Math.min(...prices);
-        this.metrics.maxProductPrice = Math.max(...prices);
+        this.minProductPrice = Math.min(...prices);
+        this.maxProductPrice = Math.max(...prices);
     } else {
         // No products, reset min and max prices
-        this.metrics.minProductPrice = 0;
-        this.metrics.maxProductPrice = 0;
+        this.minProductPrice = 0;
+        this.maxProductPrice = 0;
     }
 
     await this.save();

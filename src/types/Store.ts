@@ -21,13 +21,12 @@ export interface IStore extends Document {
         saturday: { open: string; close: string };
         sunday: { open: string; close: string };
     };
-    metrics: {
-        rating: number;
-        totalOrders: number;
-        isTopPerformer: boolean;
-        minProductPrice: number;
-        maxProductPrice: number;
-    };
+    rating: number;
+    totalReviews: number;
+    totalOrders: number;
+    isTopPerformer: boolean;
+    minProductPrice: number;
+    maxProductPrice: number;
     images: string[];
     isDeleted: boolean;
     isBanned: Date | null;

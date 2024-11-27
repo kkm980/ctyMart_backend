@@ -28,6 +28,7 @@ const productSchema = new Schema<IProduct>({
     availableQuantity: { type: Number, required: true, default: 500 },
     isAvailable: { type: Boolean, default: true },
     rating: { type: Number, default: 0 },
+    totalReviews: { type: Number, default: 0 },
     totalOrders: { type: Number, default: 0 },
     isTopPerformer: { type: Boolean, default: false },
     images: [{ type: String }],
@@ -88,11 +89,29 @@ productSchema.methods.updateAvailability = async function (isAvailable: boolean)
 // Add the static method
 productSchema.statics.incrementTotalOrders = async function (productId: string, quantity: number): Promise<void> {
     try {
-        await this.findByIdAndUpdate(productId, { $inc: { totalOrders: quantity } });
+        // Find the product to get its associated storeId
+        const product = await this.findById(productId).select('storeId');
+        if (!product) {
+            throw new Error(`Product with ID ${productId} not found.`);
+        }
+
+        // Increment the totalOrders count for the store
+        const storeId = product.storeId;
+        await mongoose.model('Store').findByIdAndUpdate(storeId, {
+            $inc: { totalOrders: quantity },
+        });
+
+        // Increment the totalOrders count for the product
+        await this.findByIdAndUpdate(productId, {
+            $inc: { totalOrders: quantity },
+        });
+
+        console.log(`Successfully updated totalOrders for product ${productId} and store ${storeId}.`);
     } catch (error) {
         console.error(`Failed to update totalOrders for product ${productId}:`, error);
     }
 };
+
 
 // Create and export the Product model
 export const Product = mongoose.model<IProduct, IProductModel>('Product', productSchema);
