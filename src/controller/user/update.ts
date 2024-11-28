@@ -144,13 +144,23 @@ if (updateData.referralCode) {
 
     // Handle premium status update
     if (updateData.isPremium !== undefined) {
-      existingUser.isPremium = updateData.isPremium ? new Date() : null;
+      existingUser.isPremium = updateData.isPremium ? updateData.isPremium : null;
     }
 
     // Handle ban status
     if (updateData.isBanned !== undefined) {
-      existingUser.isBanned = updateData.isBanned ? new Date() : null;
+      existingUser.isBanned = updateData.isBanned ? updateData.isBanned : null;
     }
+
+       // Handle delete status
+       if (updateData.isDeleted !== undefined) {
+        existingUser.isDeleted = updateData.isDeleted ? updateData.isDeleted : false;
+      }
+
+        // Handle wallet detail
+        if (updateData.walletBalance !== undefined) {
+          existingUser.walletBalance = updateData.walletBalance ? updateData.walletBalance : 0;
+        }
 
     // Remove sensitive fields
     delete updateData.password;
@@ -169,7 +179,9 @@ if (updateData.referralCode) {
           favouriteStores: existingUser.favouriteStores,
           cart: existingUser.cart,
           isPremium: existingUser.isPremium,
+          isDeleted: existingUser.isDeleted,
           isBanned: existingUser.isBanned,
+          walletBalance: existingUser.walletBalance
         },
       },
       {

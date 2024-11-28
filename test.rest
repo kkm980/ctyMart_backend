@@ -50,6 +50,7 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
+  "walletBalance":0,
   "isBanned": "2024-11-30T19:29:55.095Z"
 }
 
