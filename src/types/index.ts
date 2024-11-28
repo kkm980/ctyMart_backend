@@ -1,4 +1,5 @@
 export * from "./Category";
+export * from "./Logs";
 export * from "./Order";
 export * from "./OrderStatus";
 export * from "./OrderType";

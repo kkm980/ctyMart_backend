@@ -75,4 +75,23 @@ export enum Arrived {
     PUNCTUAL= "punctual",
     EARLY= "early"
   }
+
+// Enum for UserAction
+export enum UserAction {
+    CLICKED = 'clicked',
+    ORDERED = 'ordered',
+    CANCELLED = 'cancelled',
+    FAVOURITE_ADDED = 'favouriteAdded',
+    REMOVED_FROM_FAVOURITE = 'removedFromFavourite',
+    ADDED_TO_CART = 'addedToCart',
+    REMOVED_FROM_CART = 'removedFromCart',
+    CHANGED_DETAILS = 'changedDetails',
+    NOTIFY = 'notify',
+    DE_NOTIFY = 'deNotify',
+    PRODUCT_LISTED = 'productListed',
+    STORE_LISTED = 'storeListed',
+    PRODUCT_UPDATED = 'productUpdated',
+    STORE_UPDATED = 'storeUpdated',
+    REVIEWED = 'reviewed',
+}
   
