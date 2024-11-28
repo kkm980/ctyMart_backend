@@ -1,6 +1,6 @@
 // src/models/Product.ts
 
-import { MeasureType } from 'constants/enums';
+import { MeasureType } from '../constants/enums';
 import mongoose, { Model, Schema } from 'mongoose';
 import { IProduct, IProductModel } from 'types';
 
@@ -60,7 +60,7 @@ productSchema.pre('save', async function (next) {
         }
         next();
     } catch (error) {
-        next(error);
+        next();
     }
 });
 
@@ -74,7 +74,7 @@ productSchema.pre('deleteOne', { document: true, query: false }, async function 
         }
         next();
     } catch (error) {
-        next(error);
+        next();
     }
 });
 

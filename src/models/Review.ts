@@ -1,11 +1,11 @@
 // src/models/Review.ts
 
-import { RatingPointer, UserFinds } from 'constants/enums';
+import { RatingPointer, UserFinds } from '../constants/enums';
 import mongoose, { Schema } from 'mongoose';
 import { IReview } from 'types';
 import { Product } from './Product';
 import { Store } from './Store';
-import { roundToNearestHalf } from 'utils/roundToNearestHalf';
+import { roundToNearestHalf } from '../utils/roundToNearestHalf';
 
 // Review Schema
 const ReviewSchema = new Schema<IReview>({

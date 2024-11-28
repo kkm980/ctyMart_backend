@@ -18,7 +18,6 @@ export interface IUser extends Document {
     location: [number, number];
   }];
   deliveryPersonDetails?: {
-    location: [number, number];
     isAvailable: boolean;
     vehicleNumber?: string;
     licenseNumber?: string;

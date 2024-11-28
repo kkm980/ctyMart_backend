@@ -1,5 +1,5 @@
 // src/models/Log.ts
-import { ActionTakers, UserAction } from 'constants/enums';
+import { ActionTakers, UserAction } from '../constants/enums';
 import { Schema, model } from 'mongoose';
 import { ILog } from 'types';
 

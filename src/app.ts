@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import { config } from 'dotenv';
 import cors from "cors";
+import UserRouter from "./route/userRoute";
 
 // Load environment variables
 config();
@@ -24,5 +25,8 @@ app.get('/api/health-check', (req, res) => {
     console.log("hello")
     res.status(200).json({ message: 'Hello, World!' });
 });
+
+// Use User API routes
+app.use("/api/user", UserRouter);
 
 export default app;

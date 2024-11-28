@@ -1,6 +1,6 @@
 // src/models/User.ts
 
-import UserRole from 'constants';
+import {UserRole} from '../constants/enums';
 import mongoose, { Schema } from 'mongoose';
 import { IUser } from 'types';
 
@@ -71,20 +71,6 @@ const userSchema = new Schema<IUser>({
     },
   }],
   deliveryPersonDetails: {
-    location: {
-      type: [Number],
-      validate: {
-        validator: (value: [number, number]) => {
-          return (
-            Array.isArray(value) &&
-            value.length === 2 &&
-            value[0] >= -180 && value[0] <= 180 && // Longitude between -180 and 180
-            value[1] >= -90 && value[1] <= 90 // Latitude between -90 and 90
-          );
-        },
-        message: 'Invalid location. Coordinates must be [longitude, latitude].',
-      },
-    },
     isAvailable: {
       type: Boolean,
       default: true,

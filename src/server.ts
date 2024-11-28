@@ -1,14 +1,14 @@
 import { database, dbConfig } from "./config";
 import { logger } from "./utils";
 import app from "./app";
-// import { config } from "dotenv";
+import { config } from "dotenv";
 
 const port = process.env.PORT || 3000;
-// config();
+config();
 // Initialize database connection
 const initializeDatabase = async () => {
   try {
-    // await database.connect(dbConfig);
+    await database.connect(dbConfig);
   } catch (error) {
     logger.error('Failed to connect to database:', error);
     process.exit(1);

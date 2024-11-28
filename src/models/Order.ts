@@ -1,4 +1,4 @@
-import { ActionTakers, Arrived, OrderStatus, OrderType, PaymentStatus } from 'constants/enums';
+import { ActionTakers, Arrived, OrderStatus, OrderType, PaymentStatus } from '../constants/enums';
 import mongoose, { Schema } from 'mongoose';
 import { IOrder } from 'types';
 import { Product } from './Product';

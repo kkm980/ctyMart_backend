@@ -1,4 +1,4 @@
-import { OTPpurpose } from 'constants/enums';
+import { OTPpurpose } from '../constants/enums';
 import mongoose, { Schema } from 'mongoose';
 import { IOTP } from 'types';
 
