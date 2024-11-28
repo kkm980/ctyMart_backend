@@ -48,7 +48,7 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
       referralCode,
       referredBy,
       allAddress,
-      deliveryPersonDetails,
+      deliveryPersonDetails:deliveryPersonDetails||null,
       isPremium,
     });
 
