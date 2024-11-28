@@ -1,4 +1,5 @@
 export * from "./Category";
+export * from "./DBtype";
 export * from "./Log";
 export * from "./Order";
 export * from "./OrderStatus";
