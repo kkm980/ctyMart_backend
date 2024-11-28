@@ -104,8 +104,36 @@ const userSchema = new Schema<IUser>({
       max: [5, 'Rating cannot be greater than 5'],
     },
   },
-    isDeleted: { type: Boolean, default: false },
-    isBanned: { type: Date, default: null }
+  appNotificationsEnabled:  {
+    type: Boolean,
+    default: true, // Default value is false
+  },
+  favouriteProducts:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
+  }],
+  favouriteStores:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Store',
+  }],
+  cart: [
+    {
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product', // Reference to the Product model
+      },
+      quantity: {
+        type: Number, // Quantity of the product in the cart
+        required: true,
+      },
+    },
+  ],
+  isPremium: {
+    type: Date,    // This field will store the date when the user became premium
+    default: null, // Default value is null (not premium yet)
+  },
+  isDeleted: { type: Boolean, default: false },
+  isBanned: { type: Date, default: null }
   }, {
     timestamps: true, // Automatically manage createdAt and updatedAt fields
   });

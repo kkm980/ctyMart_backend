@@ -1,0 +1,1 @@
+export type UserAction = 'clicked' | 'ordered' | 'cancelled' | 'favouriteAdded' | 'removedFromFavourite' | 'addedToCart' | 'removedFromCart' | 'changedDetails' | 'notify' | 'deNotify' | 'productListed' | 'storeListed' | 'productUpdated' | 'storeUpdated' | 'reviewed';

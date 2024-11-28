@@ -32,6 +32,7 @@ const productSchema = new Schema<IProduct>({
     totalOrders: { type: Number, default: 0 },
     isTopPerformer: { type: Boolean, default: false },
     images: [{ type: String }],
+    notifyTo: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     isDeleted: { type: Boolean, default: false },
     isBanned: { type: Date, default: null }
 }, {

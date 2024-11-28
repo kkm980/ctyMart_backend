@@ -24,6 +24,11 @@ export interface IUser extends Document {
     licenseNumber?: string;
     rating: number;
   };
+  appNotificationsEnabled?: boolean;
+  favouriteProducts?:[mongoose.Types.ObjectId];
+  favouriteStores?:[mongoose.Types.ObjectId];
+  cart?: [{item:mongoose.Types.ObjectId, quantity: number}];
+  isPremium: Date | null;
   isDeleted: boolean;
   isBanned: Date | null;
 }

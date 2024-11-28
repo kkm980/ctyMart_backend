@@ -27,6 +27,8 @@ export interface IStore extends Document {
     isTopPerformer: boolean;
     minProductPrice: number;
     maxProductPrice: number;
+    isCertified: null | Date;
+    notifyTo?: mongoose.Types.ObjectId[];
     images: string[];
     isDeleted: boolean;
     isBanned: Date | null;

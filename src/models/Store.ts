@@ -40,6 +40,11 @@ const storeSchema = new Schema<IStore>({
     isTopPerformer: { type: Boolean, default: false },
     minProductPrice: { type: Number, required: true, default: 0 },
     maxProductPrice: { type: Number, required: true, default: 0 },
+    isCertified:{
+        type: Date,    // This field will store the date when the user became premium
+        default: null, // Default value is null (not premium yet)
+    },
+    notifyTo: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     images: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
     isBanned: { type: Date, default: null }

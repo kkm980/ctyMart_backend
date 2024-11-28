@@ -16,7 +16,8 @@ export interface IProduct extends Document {
     totalReviews: number,
     totalOrders: number;
     isTopPerformer: boolean;
-    images: string[];
+    images?: string[];
+    notifyTo?: mongoose.Types.ObjectId[];
     isDeleted: boolean;
     isBanned: Date | null;
     updateAvailability(isAvailable: boolean): Promise<IProduct>;
