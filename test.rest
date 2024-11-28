@@ -14,6 +14,13 @@ GET {{host}}/api/health-check
 ### GET LIST OF USERS GET Content-Type: application/json
 GET {{host}}/api/user
 
+{
+"filters": {}, "sort": {
+
+"name": 1
+}, "skip": 0, "limit": 10
+
+}
 
 ### CREATE USER POST Content-Type: application/json
 POST {{host}}/api/user/create
@@ -21,12 +28,12 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "email": "testuserss@example.com",
+  "email": "testuserss@examples.com",
   "password": "StrongPasswordss123",
   "name": "Test User",
-  "phone": "3214567999",
+  "phone": "3214569999",
   "role": "customer",
-  "referralCode": "RTF1234",
+  "referralCode": "RXF1234",
   "allAddress": [
     {
       "address": "123 Main St, City, Country",
@@ -38,7 +45,7 @@ Content-Type: application/json
 
 
 ### UPDATE USER PUT Content-Type: application/json
-PUT {{host}}/api/user/674893cc2a2b3455afc078b9
+PUT {{host}}/api/user/6748b2d470312e738919d00e
 Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
@@ -60,17 +67,32 @@ Content-Type: application/json
 
 
 
-### Create a new CIO team POST {{host}}/teams Content-Type: application/json
+### Create a Store
+POST {{host}}/api/store/create
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
 
 {
-"token" : "629704be0bb40dc19db4f68e.fu9e12yen4npgjcuvzhbj82te3bgzjcpmqtzchngglqaaz88", "name" : "<team name here>"
+  "name": "Test StoreEYSxvmmklklpvn",
+  "description": "A description for the test store",
+  "address": "456 Elm Street, Test City, Test Country",
+  "location": [40.7128, -74.0060],
+  "owner": "6748b2d470312e738919d00e",
+  "contact": ["123-456-7890"],
+  "operatingHours": {
+    "monday": { "open": "09:00", "close": "18:00" },
+    "tuesday": { "open": "09:00", "close": "18:00" },
+    "wednesday": { "open": "09:00", "close": "18:00" },
+    "thursday": { "open": "09:00", "close": "18:00" },
+    "friday": { "open": "09:00", "close": "18:00" },
+    "saturday": { "open": "10:00", "close": "16:00" },
+    "sunday": { "open": "closed", "close": "closed" }
+  },
+  "minProductPrice": 1000000,
+  "maxProductPrice": 20000000000,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"]
 }
 
-### to update a team PATCH {{host}}/teams Content-Type: application/json
-
-{
-"token": "", "name": "", "data": {}
-}
 
 ### Create a new user (signup member) POST {{host}}/users Content-Type: application/json
 

@@ -5,6 +5,7 @@ import compression from "compression";
 import { config } from 'dotenv';
 import cors from "cors";
 import UserRouter from "./route/userRoute";
+import storeRouter from "./route/storeRoute";
 
 // Load environment variables
 config();
@@ -28,5 +29,7 @@ app.get('/api/health-check', (req, res) => {
 
 // Use User API routes
 app.use("/api/user", UserRouter);
+// Use Store API routes
+app.use("/api/store", storeRouter);
 
 export default app;
