@@ -1,4 +1,4 @@
-import { createUser, getAllUsers } from "../controller";
+import { createUser, getAllUsers, updateUser } from "../controller";
 import { Router } from 'express';
 // Old node way
 // const express = require('express');
@@ -6,6 +6,6 @@ import { Router } from 'express';
 const userRouter = Router();
 userRouter.post('/create', createUser);
 userRouter.get('/', getAllUsers);
-userRouter.patch('/:id');
+userRouter.put('/:id', updateUser);
 userRouter.delete('/:id');
 export default userRouter;

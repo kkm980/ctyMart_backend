@@ -21,12 +21,34 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "email": "testusers@example.com",
-  "password": "StrongPassword123",
+  "email": "testuserss@example.com",
+  "password": "StrongPasswordss123",
   "name": "Test User",
-  "phone": "3214567890",
+  "phone": "3214567999",
   "role": "customer",
-  "referralCode": "REF1234",
+  "referralCode": "RTF1234",
+  "allAddress": [
+    {
+      "address": "123 Main St, City, Country",
+      "location": [73.9365033, 18.508796]
+    }
+  ],
+  "isPremium": null
+}
+
+
+### UPDATE USER PUT Content-Type: application/json
+PUT {{host}}/api/user/674893cc2a2b3455afc078b9
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
+
+{
+  "email": "testuserssss@examplex.com",
+  "password": "StrongPassword1234",
+  "name": "Test User",
+  "phone": "3214567999",
+  "role": "customer",
+  "referralCode": "FEF1234",
   "allAddress": [
     {
       "address": "123 Main St, City, Country",
