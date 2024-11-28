@@ -1,0 +1,347 @@
+@host=http://localhost:3000 
+@login_token=cio.62e4101d8ee92d4888224556.6329b86a7eb24b454f5f32f9.629f38ae0bb40dc19db4fed4.6329b8c07eb24b454f5f3331.w5facndnmsagl6bpa7dw48vq39j2cwj7b8xv5qc7h2eqhjrl8095ykzcdl5l4v3s
+
+### Health check route GET {{host}}/
+
+### GET api version GET {{host}}/version
+
+### -------------------------------- CIO ENDPOINTS -------------------------------- ###
+
+### HEALTH CHECK POST {{host}}/teams Content-Type: application/json
+GET {{host}}/api/health-check
+
+### get self GET {{host}}/self Authorization: Bearer {{login_token}}
+
+### Create a new CIO team POST {{host}}/teams Content-Type: application/json
+
+{
+"token" : "629704be0bb40dc19db4f68e.fu9e12yen4npgjcuvzhbj82te3bgzjcpmqtzchngglqaaz88", "name" : "<team name here>"
+}
+
+### to update a team PATCH {{host}}/teams Content-Type: application/json
+
+{
+"token": "", "name": "", "data": {}
+}
+
+### Create a new user (signup member) POST {{host}}/users Content-Type: application/json
+
+{
+"token": ""
+}
+
+### -------------------------------- CIO ENDPOINTS -------------------------------- ###
+
+### -------------------------------- PROCEDURE RESOURCE -------------------------------- ###
+
+### Create a new procedure POST {{host}}/procedure/create Content-Type: application/json
+
+{
+# reference to the provider (supply the coforio team id here) "provider": "62ac3e7a593a8363a45fbaf5", "location_name": "Cape Coral", "modality": "XRAY", "name": "XRAY-CFI", "description": "Procedure description here", # procedure duration in minutes "duration": 30, # can be any string (has no validations as of now) "cpt_code": "ADBDSA", "cost": 300
+}
+
+### Get multiple procedures POST {{host}}/procedure/all Content-Type: application/json
+
+{
+"filters": {}, "sort": {
+
+"name": 1
+}, "skip": 0, "limit": 10
+
+}
+
+### Get specific procedure GET {{host}}/procedure/63fe2fbc5c100c09cbd1273e
+
+### Update procedure PATCH {{host}}/procedure/update Content-Type: application/json
+
+{
+"_id": "63fe2fbc5c100c09cbd1273e", "costs":{
+
+"Freedom/Optimum":"$237.36", "Careplus":"$167.69", "Self Pay":"$400.00", "Standard":"$1,950.00", "Medicare":"$278.45", "BCBS":"$271.57", "Cigma":"$320.08"
+}
+
+}
+
+### Search through procedures GET {{host}}/procedure/search?q=xray
+
+### Delete a procedure DELETE {{host}}/procedure/delete/63fe2fbc5c100c09cbd1273e
+
+### -------------------------------- PROCEDURE RESOURCE -------------------------------- ###
+
+### -------------------------------- PATIENT RESOURCE -------------------------------- ###
+
+### Create a new patient POST {{host}}/patient/create Content-Type: application/json
+
+{
+"firstname": " ", "lastname": " ", "middlename": " ", "dob": "1998-10-21", "mobile_number": "19472191915"
+}
+
+### Get multiple patients POST {{host}}/patient/all Content-Type: application/json
+
+{
+# "sort": { "firstname": -1 }, "filters": {
+
+"firstname": "Tanay"
+}, "skip": 0, "limit": 0
+
+}
+
+### Get specific patient GET {{host}}/patient/6436ac4a7047da5bb062ff6b
+
+### Update patient PATCH {{host}}/patient/update Content-Type: application/json
+
+{
+"_id": "6436ac4a7047da5bb062ff6b", "middlename": "M"
+}
+
+### Search through patients GET {{host}}/patient/search?q=t
+
+### Delete a patient DELETE {{host}}/patient/delete/6436ac4a7047da5bb062ff6b
+
+### GEt patient doc GET {{host}}/patient/doc/6436ac4a7047da5bb062ff6b
+
+### -------------------------------- PATIENT RESOURCE -------------------------------- ###
+
+### -------------------------------- PHYSICIAN RESOURCE -------------------------------- ###
+
+### create a physician POST {{host}}/physician/create Content-Type: application/json
+
+{
+"name": "Rajbir Johar", "phone_number": "194", "office_name": "Cape Coral head office", "npi": "123421"
+}
+
+### Get a physician GET {{host}}/physician/6422f3fc887a21b3dbe2607b
+
+### Get multiple physicians POST {{host}}/physician/all Content-Type: application/json
+
+{
+"filters": {}, "skip": 0, "limit": 0
+}
+
+### update a physician PATCH {{host}}/physician/update Content-Type: application/json
+
+{
+"_id": "6422bc0e818e335d74618fb7", "office_name": "Fort Meyers head office"
+}
+
+### -------------------------------- PHYSICIAN RESOURCE -------------------------------- ###
+
+### -------------------------------- VISIT RESOURCE -------------------------------- ### ### Create a new visit POST {{host}}/visit/create Content-Type: application/json
+
+{
+# reference to the team in coforio (provide any string, has no validations as of now) "provider": "62ac3e7a593a8363a45fbaf5", # reference to member in coforio (provide any string, has no validations as of now) "referrer": "642ef5a393842ae0f6d3ee66", # reference to a patient "patient": "6436ac4a7047da5bb062ff6b", "procedures": [
+
+"64060f552bfecba01730789f"
+]
+
+}
+
+### to start a conversation POST {{host}}/visit/send-message Content-Type: application/json
+
+{
+"_id": "64551be03088a969b3b8d48f"
+}
+
+### Get multiple visits POST {{host}}/visit/all Content-Type: application/json
+
+{
+"filters": {
+"visit_key": "3U9P65"
+}, # use 1 for ascending and -1 for descending "skip": 0, "limit": 0
+
+}
+
+### Get specific visit GET {{host}}/visit/63fee731cacb1d26b3675f2e
+
+### Update visit PATCH {{host}}/visit/update Content-Type: application/json
+
+{
+"_id": "63fee731cacb1d26b3675f2e", # list of references Procedure objects "procedures": ["63fe2fbc5c100c09cbd1273e"], "patient": "63fee71ccacb1d26b3675f2c"
+}
+
+### Update visit PATCH {{host}}/visit/update Content-Type: application/json
+
+{
+"_id": "641a26c07c41cf2242ccbe90", # list of references Procedure objects "procedures": ["63fe2fbc5c100c09cbd1273e"]
+}
+
+### Get a new appointment time POST {{host}}/visit/get-slots Content-Type: application/json
+
+{
+"location": "Cape Coral", "procedures": ["XR LT WRIST 3 VIEWS"], "preference": "Evening"
+}
+
+### Schedule an appointment PATCH {{host}}/visit/schedule-appointment Content-Type:application/json
+
+{
+"_id": "6453f95a372562ed83ec078e", "start_time":"2023-03-24 09:00:00", "end_time":"2023-03-24 09:30:00"
+}
+
+### Get a document from stax GET {{host}}/visit/doc/6430893ae7f8f5db5cff81c7
+
+### Search through visits (visit search is not functional as of now) GET {{host}}/visit/search?q=KUJ
+
+### Delete a visit DELETE {{host}}/visit/delete/63fe30685c100c09cbd12746 ### -------------------------------- VISIT RESOURCE -------------------------------- ###
+
+### -------------------------------- ALERT RESOURCE -------------------------------- ### ### Create a new alert POST {{host}}/alert/create Content-Type: application/json
+
+{
+# reference to visit (visit id) "visit": "64273c02eaf33e1be5a79067", "type": "ADMIN_ALERT", "classification": "IEV due"
+}
+
+### Get multiple alerts POST {{host}}/alert/all Content-Type: application/json
+
+{
+"filters": {}, "skip": 0, "limit": 0
+}
+
+### Get specific alert GET {{host}}/alert/640a10086af0ac3e4b9cdcba
+
+### Update alert PATCH {{host}}/alert/update Content-Type: application/json
+
+{
+# alert id "_id": "640a10086af0ac3e4b9cdcba", # use a 'new Date().toUTCString()' javascript timestamp "clearedOn": "Thu, 09 Mar 2023 16:59:30 GMT"
+}
+
+### Delete an alert DELETE {{host}}/alert/delete/640a10086af0ac3e4b9cdcba
+
+### -------------------------------- ALERT RESOURCE -------------------------------- ###
+
+### -------------------------------- CONVERSATION RESOURCE -------------------------------- ### ### get all messages in a conversation (that are not stray messages) GET {{host}}/conversation/641c2693e365d65a6eee79bc
+
+### send a message in a thread POST {{host}}/conversation/send-message Content-Type: application/json
+
+{
+"thread_id": "641c2693e365d65a6eee79bc", "message": "Hello from admin!"
+}
+
+### -------------------------------- CONVERSATION RESOURCE -------------------------------- ###
+
+### -------------------------------- STAX ENDPOINTS -------------------------------- ###
+
+### GET ALL stacks GET https://api.stax.ai/stack/all Email: tanay.k@inventives.ai Authorization: Bearer oay85vkadjs3s6d18an9cgw0khmzyh3hs1ejbkb Accept: application/json
+
+### -------------------------------- STAX ENDPOINTS -------------------------------- ###
+
+### -------------------------------- WEBHOOKS -------------------------------- ###
+
+### send a request to the stax webhook POST https://e00adf62caa7.in.ngrok.io/stax-webhook Content-Type: application/json
+
+{
+"helo": 123
+}
+
+### paraphrase webhook test POST https://86e084f3078e.ngrok.app/paraphrase-webhook Content-Type: application/json
+
+{
+"helo": "helo"
+}
+
+### -------------------------------- WEBHOOKS -------------------------------- ###
+
+### Get a new appointment time POST {{host}}/visit/get-slots Content-Type: application/json
+
+{
+"location": "Cape Coral", "procedures": ["XRAY-123"], "preference": "Morning"
+}
+
+### -------------------------------- PAYMENT -------------------------------- ###
+
+### Get a publishable key
+POST {{host}}/payment/key Content-Type: application/json
+
+### Get a token key
+
+POST {{host}}/payment/token Content-Type: application/json
+
+{
+"publishable_key":"key_23fdfdf34fe"
+}
+
+### Do payment
+
+POST {{host}}/payment/post Content-Type: application/json
+
+{ "amountBase": "5.99", "_id": "63fe30685c100c09cbd12746", "formState": { "name": "Krishna", "cardNumber": "4242424242424242", "cardCvv": "999", "cardExpMonth": "01", "cardExpYear": "2029" } }
+
+### -------------------------------- PAYMENT RESOURCE -------------------------------- ###
+
+### -------------------------------- WARNING RESOURCE -------------------------------- ###
+
+### GET ALL ### POST {{host}}/warning/all Content-Type: application/json
+
+### GET ONE GET {{host}}/warning/6421ac5bebf2f03f29fa60d7 Content-Type: application/json
+
+{
+"_id":"6421ac5bebf2f03f29fa60d7"
+}
+
+### CREATE ###
+
+POST {{host}}/warning/create Content-Type: application/json
+
+{
+"type": "document", "trigger_date": "Fri Mar 25 2022 05:30:00 GMT+0530 (India Standard Time)", "document_type":"HEALTH_INSURANCE", "document":"64229874836e6eabc3421ab6"
+}
+
+### UPDATE ###
+
+PATCH {{host}}/warning/update Content-Type: application/json
+
+{
+"_id":"6421ac5bebf2f03f29fa60d7", "type": "abcDEFg", "trigger_date": "Fri Mar 25 2022 05:30:00 GMT+0530 (India Standard Time)", "clearedOn": "Fri Mar 25 2022 05:30:00 GMT+0530 (India Standard Time)", "document_type":"RANDOM", "document":"document"
+}
+
+### DELETE DELETE {{host}}/warning/delete/6421ac5bebf2f03f29fa60d7 Content-Type: application/json
+
+{
+"_id":"6421ac5bebf2f03f29fa60d7", "type": "abcDEF", "trigger_date": "Fri Mar 25 2022 05:30:00 GMT+0530 (India Standard Time)", "clearedOn": "Fri Mar 25 2022 05:30:00 GMT+0530 (India Standard Time)", "document_type":"RANDOM", "document":"document"
+}
+
+### Get all modifiers, modalities and body_fields POST {{host}}/procedure/others
+
+### Get all modifiers, modalities and body_fields POST {{host}}/procedure/find Content-Type: application/json
+
+{
+"modality":"MRA", "body_field":"Thoracic", "modifier":["IV W/O"]
+} ### -------------------------------- WARNING RESOURCE -------------------------------- ###
+
+### -------------------------------- NOTIFICATION RESOURCE -------------------------------- ###
+
+POST {{host}}/notification/all Content-Type: application/json
+
+{
+"filters": {}
+}
+
+PATCH {{host}}/notification Content-Type: application/json
+
+{
+"clearedOn": ""
+}
+
+### -------------------------------- NOTIFICATION RESOURCE -------------------------------- ###
+
+### -------------------------------- PROCEDUREFILTER RESOURCE -------------------------------- ###
+
+POST {{host}}/procedurefilter/all Content-Type: application/json
+
+{
+"filters": {"modality":"MRI", "body_parts":"THORACIC"}
+}
+
+### POST {{host}}/procedurefilter/all Content-Type: application/json
+
+{
+"filters": {}
+}
+
+### POST {{host}}/procedurefilter/create Content-Type: application/json
+
+### -------------------------------- PROCEDUREFILTER RESOURCE -------------------------------- ###
+
+### -------------------------------- LOCATION RESOURCE -------------------------------- ###
+
+POST {{host}}/location/all Content-Type: application/json
+
+### -------------------------------- LOCATION RESOURCE -------------------------------- ###

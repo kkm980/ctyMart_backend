@@ -1,27 +1,6 @@
-import { database, dbConfig } from "./config";
+import { startServer } from "./server";
+import { database } from "./config";
 import { logger } from "./utils";
-import app from "./app";
-
-const port = process.env.PORT || 3000;
-
-// Initialize database connection
-const initializeDatabase = async () => {
-  try {
-    // await database.connect(dbConfig);
-  } catch (error) {
-    logger.error('Failed to connect to database:', error);
-    process.exit(1);
-  }
-};
-
-// Start server
-const startServer = async () => {
-  await initializeDatabase();
-  
-  app.listen(port, () => {
-    logger.info(`Server is running on port ${port}`);
-  });
-};
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.json()); // Middleware to parse JSON requests
 
   // Sample REST method
-app.get('/api/example', (req, res) => {
+app.get('/api/health-check', (req, res) => {
     console.log("hello")
     res.status(200).json({ message: 'Hello, World!' });
 });

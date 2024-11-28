@@ -1,6 +1,7 @@
 /node_modules
 /.npm
 /.pnp
+/.vscode
 .pnp.js
 .yarn/install-state.gz
 
