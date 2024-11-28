@@ -2,7 +2,7 @@ import { database, dbConfig } from "./config";
 import { logger } from "./utils";
 import app from "./app";
 
-const port = process.env.PORT || 3000 ;
+const port = process.env.PORT || 3000;
 
 // Initialize database connection
 const initializeDatabase = async () => {
