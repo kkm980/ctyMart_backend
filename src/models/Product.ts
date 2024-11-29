@@ -50,17 +50,51 @@ productSchema.pre<IProduct>('save', function (next) {
     next();
 });
 
-// on addition/update on any product, update the minimum price, maximum price of store 
-productSchema.pre('save', async function (next) {
+// Centralized Middleware Logic
+// Centralized logic for updating store metrics
+// Centralized logic for updating store metrics
+async function updateStoreMetrics(product: any) {
+    console.log("Middleware triggered for product:", product?._id);
     try {
         const Store = mongoose.model('Store');
-        const store = await Store.findById(this.storeId);
+        const store = await Store.findById(product.storeId);
         if (store) {
-            await store.updatePriceMetrics(); // Update store metrics before saving the product
+            console.log("Store found, updating metrics");
+            await store.updatePriceMetrics(); // Update store metrics
+        } else {
+            console.warn("Store not found for product:", product.storeId);
         }
-        next();
     } catch (error) {
-        next();
+        console.error("Error in middleware for updating store metrics:", error);
+    }
+}
+
+// Post middleware for `findOneAndUpdate` and `findByIdAndUpdate`
+productSchema.post('findOneAndUpdate', async function () {
+    try {
+        // Retrieve the updated document manually
+        const updatedProduct = await this.model.findOne(this.getQuery());
+        if (updatedProduct) {
+            await updateStoreMetrics(updatedProduct);
+        } else {
+            console.warn("Updated product not found for query:", this.getQuery());
+        }
+    } catch (error) {
+        console.error("Error in post('findOneAndUpdate') middleware:", error);
+    }
+});
+
+
+// Add middleware for `save`
+productSchema.post('save', async function () {
+    await updateStoreMetrics(this);
+});
+
+// Add middleware for `updateOne`
+productSchema.post('updateOne', async function (doc) {
+    const updatedProduct = await this.model.findOne(this.getQuery());
+    if (updatedProduct) {
+        await updateStoreMetrics(updatedProduct);
     }
 });
 
@@ -107,7 +141,6 @@ productSchema.statics.incrementTotalOrders = async function (productId: string, 
             $inc: { totalOrders: quantity },
         });
 
-        console.log(`Successfully updated totalOrders for product ${productId} and store ${storeId}.`);
     } catch (error) {
         console.error(`Failed to update totalOrders for product ${productId}:`, error);
     }

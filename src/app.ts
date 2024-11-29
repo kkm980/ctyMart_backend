@@ -6,6 +6,7 @@ import { config } from 'dotenv';
 import cors from "cors";
 import UserRouter from "./route/userRoute";
 import storeRouter from "./route/storeRoute";
+import productRouter from "./route/productRoute";
 
 // Load environment variables
 config();
@@ -23,12 +24,14 @@ app.use(express.json()); // Middleware to parse JSON requests
 
   // Sample REST method
 app.get('/api/health-check', (req, res) => {
-    console.log("hello")
-    res.status(200).json({ message: 'Hello, World!' });
+    console.log("server running like heartbeat-->normal")
+    res.status(200).json({ message: 'server running like heartbeat-->normal' });
 });
 
 // Use User API routes
 app.use("/api/user", UserRouter);
+// Use Product API routes
+app.use("/api/product", productRouter);
 // Use Store API routes
 app.use("/api/store", storeRouter);
 

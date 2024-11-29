@@ -28,12 +28,12 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "email": "testuserss@examplesggg.com",
-  "password": "StrongPasswordss123",
+  "email": "testuserss@examplesgggs.com",
+  "password": "StrongPasswordss1234",
   "name": "Test User",
-  "phone": "9219589999",
+  "phone": "9299589999",
   "role": "customer",
-  "referralCode": "KXZ2234",
+  "referralCode": "KTZ2234",
   "allAddress": [
     {
       "address": "123 Main St, City, Country",
@@ -45,16 +45,26 @@ Content-Type: application/json
 
 
 ### UPDATE USER PUT Content-Type: application/json
-PUT {{host}}/api/user/6749e4256c0c6e86b24b1d2e
+PUT {{host}}/api/user/update/6749e4256c0c6e86b24b1d2e
 Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "walletBalance":92,
+  "walletBalance":93,
   "isBanned": "2024-11-30T19:29:55.095Z"
 }
 
 
+### Get Stores
+GET {{host}}/api/store
+
+{
+"filters": {}, "sort": {
+
+"name": 1
+}, "skip": 0, "limit": 10
+
+}
 
 ### Create a Store
 POST {{host}}/api/store/create
@@ -62,11 +72,11 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "name": "Test StoreEYSxvmmklklpvn",
+  "name": "Test StoreEGTT",
   "description": "A description for the test store",
   "address": "456 Elm Street, Test City, Test Country",
   "location": [40.7128, -74.0060],
-  "owner": "6748b2d470312e738919d00e",
+  "owner": "6749f8fad0cfde3a662c25f6",
   "contact": ["123-456-7890"],
   "operatingHours": {
     "monday": { "open": "09:00", "close": "18:00" },
@@ -81,6 +91,66 @@ Content-Type: application/json
   "maxProductPrice": 20000000000,
   "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"]
 }
+
+### Update a Store
+PUT {{host}}/api/store/update/674a2a6ef072f33b21008a38
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
+
+{
+  "name": "Test StoreEYS",
+  "description": "A description for the test store",
+  "address": "456 Elm Street, Test City, Test Country",
+  "location": [40.7128, -74.0060],
+  "owner": "6749e4256c0c6e86b24b1d2e",
+  "contact": ["123-456-7890"],
+  "operatingHours": {
+    "monday": { "open": "09:00", "close": "18:00" },
+    "tuesday": { "open": "09:00", "close": "18:00" },
+    "wednesday": { "open": "09:00", "close": "18:00" },
+    "thursday": { "open": "09:00", "close": "18:00" },
+    "friday": { "open": "09:00", "close": "18:00" },
+    "saturday": { "open": "10:00", "close": "16:00" },
+    "sunday": { "open": "closed", "close": "closed" }
+  },
+  "minProductPrice": 10,
+  "maxProductPrice": 20000000000,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"]
+}
+
+
+### Create a Product
+POST {{host}}/api/product/create
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
+
+{
+  "storeId": "674a2a6ef072f33b21008a38",
+  "name": "Test Product 12345",
+  "description": "A sample product description",
+  "price": 1,
+  "measuringUnit": "ml",
+  "availableQuantity": 50,
+  "images": [
+    "https://example.com/product1.jpg",
+    "https://example.com/product2.jpg"
+  ]
+}
+
+
+### Update a Product
+PUT {{host}}/api/product/update/674a2f207d3093abd65d9095
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
+
+{
+  "name": "hellos",
+  "description": "A sample product descriptions",
+  "isDeleted": false,
+  "measuringUnit": "l",
+  "price": 2
+}
+
 
 
 ### Create a new user (signup member) POST {{host}}/users Content-Type: application/json

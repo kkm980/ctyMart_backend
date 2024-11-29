@@ -131,7 +131,7 @@ export const createStore = async (req: Request, res: Response): Promise<void> =>
     }
 
     // Check if store with same name exists
-    const existingStore = await Store.findOne({ name, isDeleted: false });
+    const existingStore = await Store.findOne({ name });
     if (existingStore) {
       res.status(400).json({
         success: false,

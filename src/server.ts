@@ -20,7 +20,7 @@ export const startServer = async () => {
   await initializeDatabase();
   
   app.listen(port, () => {
-    logger.info(`Server is running on port ${port}`);
+    logger.info(`on port ${port} Server is running like heartbeat --> normal`);
   });
 };
 

@@ -6,6 +6,6 @@ import { Router } from 'express';
 const userRouter = Router();
 userRouter.post('/create', createUser);
 userRouter.get('/', getAllUsers);
-userRouter.put('/:id', updateUser);
+userRouter.put('/update/:id', updateUser);
 userRouter.delete('/:id');
 export default userRouter;
