@@ -32,48 +32,48 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-// Check for unique constraints
-if (updateData.email) {
-  const emailExists: IUser | null = await User.findOne({
-    email: updateData.email,
-  });
+    // Check for unique constraints
+    if (updateData.email) {
+      const emailExists: IUser | null = await User.findOne({
+        email: updateData.email,
+      });
 
-  if (emailExists && emailExists?._id?.toString() !== id) {
-    res.status(400).json({
-      success: false,
-      error: 'Email already in use',
-    });
-    return;
-  }
-}
+      if (emailExists && emailExists?._id?.toString() !== id) {
+        res.status(400).json({
+          success: false,
+          error: 'Email already in use',
+        });
+        return;
+      }
+    }
 
-if (updateData.phone) {
-  const phoneExists : IUser | null = await User.findOne({
-    phone: updateData.phone,
-  });
+    if (updateData.phone) {
+      const phoneExists: IUser | null = await User.findOne({
+        phone: updateData.phone,
+      });
 
-  if (phoneExists && phoneExists?._id?.toString() !== id) {
-    res.status(400).json({
-      success: false,
-      error: 'Phone number already in use',
-    });
-    return;
-  }
-}
+      if (phoneExists && phoneExists?._id?.toString() !== id) {
+        res.status(400).json({
+          success: false,
+          error: 'Phone number already in use',
+        });
+        return;
+      }
+    }
 
-if (updateData.referralCode) {
-  const referralCodeExists: IUser | null = await User.findOne({
-    referralCode: updateData.referralCode,
-  });
+    if (updateData.referralCode) {
+      const referralCodeExists: IUser | null = await User.findOne({
+        referralCode: updateData.referralCode,
+      });
 
-  if (referralCodeExists && referralCodeExists?._id?.toString() !== id) {
-    res.status(400).json({
-      success: false,
-      error: 'Referral code already in use',
-    });
-    return;
-  }
-}
+      if (referralCodeExists && referralCodeExists?._id?.toString() !== id) {
+        res.status(400).json({
+          success: false,
+          error: 'Referral code already in use',
+        });
+        return;
+      }
+    }
 
 
     // Handle nested updates
@@ -152,15 +152,30 @@ if (updateData.referralCode) {
       existingUser.isBanned = updateData.isBanned ? updateData.isBanned : null;
     }
 
-       // Handle delete status
-       if (updateData.isDeleted !== undefined) {
-        existingUser.isDeleted = updateData.isDeleted ? updateData.isDeleted : false;
-      }
+    // Handle delete status
+    if (updateData.isDeleted !== undefined) {
+      existingUser.isDeleted = updateData.isDeleted ? updateData.isDeleted : false;
+    }
 
-        // Handle wallet detail
-        if (updateData.walletBalance !== undefined) {
-          existingUser.walletBalance = updateData.walletBalance ? updateData.walletBalance : 0;
-        }
+    // Handle wallet detail
+    // Handle wallet detail
+    if (updateData.walletBalance !== undefined) {
+      const isNumber = typeof updateData.walletBalance === 'number';
+      const isStringNumber =
+        typeof updateData.walletBalance === 'string' &&
+        /^[+-]?\d+(\.\d+)?$/.test(updateData.walletBalance); // Regex for valid number
+
+      if (isNumber || isStringNumber) {
+        existingUser.walletBalance = parseFloat(updateData.walletBalance) || 0;
+      } else {
+        res.status(400).json({
+          success: false,
+          error: 'Invalid wallet balance',
+        });
+        return;
+      }
+    }
+
 
     // Remove sensitive fields
     delete updateData.password;

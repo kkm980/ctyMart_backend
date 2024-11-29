@@ -28,12 +28,12 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "email": "testuserss@examplesgg.com",
+  "email": "testuserss@examplesggg.com",
   "password": "StrongPasswordss123",
   "name": "Test User",
-  "phone": "9219569999",
+  "phone": "9219589999",
   "role": "customer",
-  "referralCode": "KXZ1234",
+  "referralCode": "KXZ2234",
   "allAddress": [
     {
       "address": "123 Main St, City, Country",
@@ -45,12 +45,12 @@ Content-Type: application/json
 
 
 ### UPDATE USER PUT Content-Type: application/json
-PUT {{host}}/api/user/6748c3706540ab34bc72262f
+PUT {{host}}/api/user/6749e4256c0c6e86b24b1d2e
 Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "walletBalance":0,
+  "walletBalance":92,
   "isBanned": "2024-11-30T19:29:55.095Z"
 }
 
