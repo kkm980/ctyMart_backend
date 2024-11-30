@@ -27,7 +27,8 @@ export enum OrderStatus {
     Accepted = 'accepted',
     Processing = 'processing',
     Reaching = 'reaching',
-    Cancelled = 'cancelled'
+    Cancelled = 'cancelled',
+    Delivered = 'delivered'
 };
 
 export enum PaymentStatus {

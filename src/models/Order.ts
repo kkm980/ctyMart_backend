@@ -98,5 +98,4 @@ OrderSchema.post('findOneAndUpdate', async function (doc: any) {
 });
 
 // Create and export the model
-const Order = mongoose.model<IOrder>('Order', OrderSchema);
-export default Order;
+export const Order = mongoose.model<IOrder>('Order', OrderSchema);

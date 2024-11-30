@@ -158,11 +158,66 @@ Content-Type: application/json
 {  "name": "Test Product 1234589",
   "description": "A sample product descriptions",
   "isDeleted": false,
-  "measuringUnit": "l",
-  "price": 2,
-  "isDeleted": true
+  "measuringUnit": "g",
+  "price": 2
 }
 
+
+### Create an Order
+POST {{host}}/api/order/create
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
+
+{
+  "customer": "674aaa489575b9fcd7b8e7c8",
+  "description": "Test order for electronics",
+  "items": [
+    {
+      "product": "674aadaf42ac7570e0ca3737",
+      "quantity": 2
+    },
+    {
+      "product": "674aadaf42ac7570e0ca3737",
+      "quantity": 1
+    }
+  ],
+  "totalPrice": 250,
+  "staus": "delivered",
+  "orderType": "prepaid",
+  "deliverAt": {
+    "address": "123 Test Lane, Test City, Test Country",
+    "location": [40.7128, -74.0060]
+  }
+}
+
+
+### Update an Order
+PUT {{host}}/api/order/update/674b2dcc051cf768c81d0aac
+Authorization: Bearer {{login_token}}
+Content-Type: application/json
+
+{
+  "customer": "674aaa489575b9fcd7b8e7c8",
+  "description": "Test order for electronics",
+  "items": [
+    {
+      "product": "674aadaf42ac7570e0ca3737",
+      "quantity": 8
+    },
+    {
+      "product": "674aadaf42ac7570e0ca3737",
+      "quantity": 2
+    }
+  ],
+  "totalPrice": 850,
+
+  "orderType": "gift",
+  "updatedBy": "user",
+  "deliverAt": {
+    "address": "123 Test Lane, Test City, Test Country",
+    "location": [40.7128, -74.0060]
+  }
+}
 
 
 ### Create a new user (signup member) POST {{host}}/users Content-Type: application/json

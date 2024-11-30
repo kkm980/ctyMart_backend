@@ -16,8 +16,8 @@ export interface IOrder extends Document {
         updatedBy: ActionTakers;
         status: OrderStatus | PaymentStatus;
     }>;
-    items: [{ product: mongoose.Types.ObjectId, qantity: Number }];
-    totalPrice: Number;
+    items: [{ product: mongoose.Types.ObjectId, quantity: number }];
+    totalPrice: number;
     arrivingIn?: string; // total predicted time to arrive
     arrived?: TimeStatus; // was order late or not
     deliverAt: {

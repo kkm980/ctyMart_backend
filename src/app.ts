@@ -7,6 +7,7 @@ import cors from "cors";
 import UserRouter from "./route/userRoute";
 import storeRouter from "./route/storeRoute";
 import productRouter from "./route/productRoute";
+import orderRouter from "./route/orderRoute";
 
 // Load environment variables
 config();
@@ -30,6 +31,8 @@ app.get('/api/health-check', (req, res) => {
 
 // Use User API routes
 app.use("/api/user", UserRouter);
+// Use Order API routes
+app.use("/api/order", orderRouter);
 // Use Product API routes
 app.use("/api/product", productRouter);
 // Use Store API routes
