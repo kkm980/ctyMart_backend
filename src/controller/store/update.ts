@@ -24,7 +24,7 @@ export const updateStore = async (req: Request, res: Response): Promise<void> =>
 
   try {
     // Fetch store within the session
-    const store = await Store.findById(storeId);
+    const store = await Store.findById(storeId).session(session);
     if (!store) {
       await session.abortTransaction();
       return errorResponse(res, 'Store not found', 404);

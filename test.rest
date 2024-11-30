@@ -28,12 +28,12 @@ Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
 {
-  "email": "testuserss@examplesgggs.com",
+  "email": "testuserss@examps.com",
   "password": "StrongPasswordss1234",
   "name": "Test User",
-  "phone": "9299589999",
+  "phone": "9099589999",
   "role": "customer",
-  "referralCode": "KTZ2234",
+  "referralCode": "TTZ2234",
   "allAddress": [
     {
       "address": "123 Main St, City, Country",
@@ -45,7 +45,7 @@ Content-Type: application/json
 
 
 ### UPDATE USER PUT Content-Type: application/json
-PUT {{host}}/api/user/update/6749e4256c0c6e86b24b1d2e
+PUT {{host}}/api/user/update/674aaa489575b9fcd7b8e7c8
 Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
@@ -102,6 +102,7 @@ Content-Type: application/json
   "description": "A description for the test store",
   "address": "456 Elm Street, Test City, Test Country",
   "location": [40.7128, -74.0060],
+  "meta": "coforio",
   "owner": "6749e4256c0c6e86b24b1d2e",
   "contact": ["123-456-7890"],
   "operatingHours": {
@@ -118,6 +119,17 @@ Content-Type: application/json
   "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"]
 }
 
+### get product ###
+GET {{host}}/api/product
+
+{
+"filters": {}, "sort": {
+
+"name": 1
+}, "skip": 0, "limit": 10
+
+}
+
 
 ### Create a Product
 POST {{host}}/api/product/create
@@ -126,7 +138,7 @@ Content-Type: application/json
 
 {
   "storeId": "674a2a6ef072f33b21008a38",
-  "name": "Test Product 12345",
+  "name": "Test Product 1234589",
   "description": "A sample product description",
   "price": 1,
   "measuringUnit": "ml",
@@ -139,16 +151,16 @@ Content-Type: application/json
 
 
 ### Update a Product
-PUT {{host}}/api/product/update/674a2f207d3093abd65d9095
+PUT {{host}}/api/product/update/674aadaf42ac7570e0ca3737
 Authorization: Bearer {{login_token}}
 Content-Type: application/json
 
-{
-  "name": "hellos",
+{  "name": "Test Product 1234589",
   "description": "A sample product descriptions",
   "isDeleted": false,
   "measuringUnit": "l",
-  "price": 2
+  "price": 2,
+  "isDeleted": true
 }
 
 
